@@ -1,0 +1,5 @@
+name = Memory breaker
+description = Breaks you menu SUDDENLY!
+package = Other
+core = 7.x
+dependencies[] = devel

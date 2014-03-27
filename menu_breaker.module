@@ -1,0 +1,39 @@
+<?php 
+
+/**
+ * Implements hook_menu().
+ */
+function menu_breaker_menu() {
+  $items['menu_breaker'] = array(
+    'title' => 'Memory breaker',
+    'description' => 'Memory breaker.',
+    'page callback' => 'menu_breaker_page',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+function menu_breaker_page() {
+  // Get a copy of $menu  
+  $menu = menu_tree_all_data('main-menu');
+  dpm('You need to have some node links in the menu. Create them. Then compare arrays in BEFORE and AFTER outputs. Specifically, look at [\'link\'][\'link_title\'] items.');
+  dpm('BEFORE:');
+  dpm($menu);
+  // Passing a copy by value
+  menu_breaker_break_menu($menu);
+  dpm('AFTER:');
+  // SUDDENLY all node links are broken!
+  dpm($menu);
+  return '';
+}
+
+function menu_breaker_break_menu($menu) {
+  // Operate on copy
+  foreach($menu as $menu_item) {
+    $menu_item['link']['link_title'] = "BROKEN";
+    $menu_item['link']['title'] = "BROKEN";
+    $menu_item['link']['description'] = "BROKEN!!!";
+  }
+}
+
